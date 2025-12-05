@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast - StyleGenius</title>
+    <link rel="stylesheet" href="weather.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .weather-page {
+            padding-top: 6rem;
+        }
+        
+        .weather-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .weather-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .weather-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .forecast-container {
+            padding: 4rem 0;
+        }
+        
+        .current-weather {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .current-weather .location {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .current-weather .temperature {
+            font-size: 4rem;
+            font-weight: 300;
+            margin: 1rem 0;
+        }
+        
+        .current-weather .condition {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .detail-card {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .detail-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .detail-card .value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        
+        .detail-card .label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .forecast-section {
+            margin-top: 3rem;
+        }
+        
+        .forecast-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .forecast-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .forecast-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .forecast-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .forecast-card .day {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .forecast-card .weather-icon {
+            font-size: 3rem;
+            margin: 1rem 0;
+            color: var(--primary-color);
+        }
+        
+        .forecast-card .temp-range {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        .forecast-card .high {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        .forecast-card .low {
+            opacity: 0.7;
+        }
+        
+        .outfit-suggestions {
+            background: var(--light-color);
+            padding: 4rem 0;
+            margin-top: 3rem;
+        }
+        
+        .suggestion-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .suggestion-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .suggestion-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .suggestion-content {
+            padding: 1.5rem;
+        }
+        
+        .suggestion-content h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .suggestion-content p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .back-to-home {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .weather-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .current-weather .temperature {
+                font-size: 3rem;
+            }
+            
+            .forecast-cards {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-tshirt"></i> StyleGenius
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="index.html#testimonials">Testimonials</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="weather.html" class="weather-nav">Weather Forecast</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="weather-page">
+        <section class="weather-hero">
+            <div class="container">
+                <h1><i class="fas fa-cloud-sun"></i> Weather Forecast</h1>
+                <p>Get real-time weather data and perfect outfit suggestions for your location</p>
+            </div>
+        </section>
+
+        <section class="forecast-container">
+            <div class="container">
+                <div class="current-weather">
+                    <div class="location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="current-location">Detecting location...</span>
+                    </div>
+                    <div class="temperature" id="current-temperature">--°C</div>
+                    <div class="condition" id="current-condition">--</div>
+                    <div class="weather-details">
+                        <div class="detail-card">
+                            <i class="fas fa-wind"></i>
+                            <div class="value" id="current-wind">--</div>
+                            <div class="label">Wind Speed</div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-tint"></i>
+                            <div class="value" id="current-humidity">--</div>
+                            <div class="label">Humidity</div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-temperature-low"></i>
+                            <div class="value" id="current-feels-like">--°C</div>
+                            <div class="label">Feels Like</div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-eye"></i>
+                            <div class="value" id="current-visibility">--</div>
+                            <div class="label">Visibility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="forecast-section">
+                    <h2>5-Day Forecast</h2>
+                    <div class="forecast-cards" id="forecast-cards">
+                        <!-- Forecast cards populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="outfit-suggestions">
+                    <div class="container">
+                        <h2>Recommended Outfits</h2>
+                        <p>Based on current weather conditions</p>
+                        <div class="suggestion-cards" id="suggestion-cards">
+                            <!-- Outfit suggestions populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="back-to-home">
+                    <a href="index.html" class="btn primary">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-tshirt"></i> StyleGenius</h3>
+                    <p>Your personal AI stylist for perfect outfits every day.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="index.html#testimonials">Testimonials</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form>
+                        <input type="email" placeholder="Your Email Address">
+                        <button type="submit" class="btn primary">Subscribe <i class="fas fa-envelope"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 StyleGenius. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="weather.js"></script>
+</body>
+</html>
