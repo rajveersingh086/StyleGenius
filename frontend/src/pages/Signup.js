@@ -26,7 +26,7 @@ function Signup({ setIsAuthenticated }) {
     }
 
     try {
-      const url = "http://localhost:8080/auth/signup";
+      const url = "https://style-genius-api.vercel.app/auth/signup";
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
